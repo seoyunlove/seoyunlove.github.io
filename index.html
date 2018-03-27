@@ -14,11 +14,86 @@
       padding: 0;
       margin: 10px;
     }
+
+    /* The side navigation menu */
+
+    .sidenav {
+      height: 100%;
+      /* 100% Full-height */
+      width: 0;
+      /* 0 width - change this with JavaScript */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Stay on top */
+      top: 0;
+      /* Stay at the top */
+      left: 0;
+      background-color: #111;
+      /* Black*/
+      overflow-x: hidden;
+      /* Disable horizontal scroll */
+      padding-top: 60px;
+      /* Place content 60px from the top */
+      transition: 0.5s;
+      /* 0.5 second transition effect to slide in the sidenav */
+    }
+
+    /* The navigation menu links */
+
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    /* When you mouse over the navigation links, change their color */
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    /* Position and style the close button (top right corner) */
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
+    #main {
+      transition: margin-left .5s;
+      padding: 20px;
+    }
+
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <h5 id="title"></h5>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#" onclick="closeNav()">오늘</a>
+    <a href="#" onclick="closeNav()">수유 기록</a>
+    <a href="#" onclick="closeNav()">서윤아 사랑해</a>
+  </div>
+  <h5 id="title" onclick="openNav()"></h5>
   <button type="button" class="btn btn-secondary" style="width:100%;" onclick="add(70);">70 (2 스푼)</button>
   <button type="button" class="btn btn-primary" style="width:100%;margin-top:10px;" onclick="add(100);">100 (3 스푼)</button>
   <button type="button" class="btn btn-success" style="width:100%;margin-top:10px;" onclick="add(135);">135 (4 스푼)</button>
@@ -30,16 +105,25 @@
   </div>
 
   <script>
-    function z(n){return (n<10?'0':'')+n}
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    /* Set the width of the side navigation to 0 */
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    function z(n) { return (n < 10 ? '0' : '') + n }
     // localStorage.setItem('shistory', null)
     var hoptions = { hour: "2-digit", minute: "2-digit" }
     var options = { weekday: 'long', month: 'long', day: 'numeric' }
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
+    var tot = getd('r')
     function getd(r) {
       var d = new Date()
       var h = d.getHours()
-      var n = (h<12? '오전 ' :'오후 ')+ (h%12 || 12) + ':' + z(d.getMinutes()) + ' '
+      var n = (h < 12 ? '오전 ' : '오후 ') + (h % 12 || 12) + ':' + z(d.getMinutes()) + ' '
       return r ? (d.getMonth() + 1) + "월 " + d.getDate() + "일" : n
     }
     var td = getd('r')
@@ -51,9 +135,13 @@
     }
 
     function add(a) {
-      if (td != new Date().toLocaleDateString('ko-KR', options)) {
-        // todayTotal = 0
-        td = getd('r')
+      var d = new Date()
+      var h = d.getHours()
+      var n = (h < 12 ? '오전' : '오후')
+      var hh = (h % 12 || 12)
+      if (td != getd('r') && (n == '오후' || n == '오전' && hh >= 2)) {
+        todayTotal = 0
+        tot = getd('r')
       }
       todayTotal += a
       console.log(new Date().toLocaleDateString('ko-KR', hoptions))
@@ -62,13 +150,21 @@
         ml: a
       })
       localStorage.setItem('todayTotal', todayTotal)
-      document.getElementById('title').innerText = getd('r') + ' ' + todayTotal + 'ml'
+      document.getElementById('title').innerText = tot + ' ' + todayTotal + 'ml'
       document.getElementById('hist').innerHTML = ''
       localStorage.setItem('shistory', JSON.stringify(shistory))
       gh()
     }
     window.onload = function () {
-      document.getElementById('title').innerHTML = getd('r') + ' ' + todayTotal + 'ml'
+      var d = new Date()
+      var h = d.getHours()
+      var n = (h < 12 ? '오전' : '오후')
+      var hh = (h % 12 || 12)
+      if (td != getd('r') && (n == '오후' || n == '오전' && hh >= 2)) {
+        todayTotal = 0
+        tot = getd('r')
+      }
+      document.getElementById('title').innerHTML = tot + ' ' + todayTotal + 'ml'
       gh()
     }
   </script>
