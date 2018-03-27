@@ -38,19 +38,11 @@
       document.getElementById('title').innerText = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
       document.getElementById('hist').innerHTML = ''
       localStorage.setItem('shistory', JSON.stringify(shistory))
-      shistory.forEach((s, i) => {
-        document.getElementById('hist').innerHTML += `<div class="alert alert-${i % 2 === 0 ? 'warning' : 'info'}" role="alert">
-        <a href="#" class="alert-link">${s.time}</a> ${s.ml}ml
-      </div>`
-      })
+      // gh()
     }
     window.onload = function () {
-      document.getElementById('title').innerHTML = '수유'
-      shistory.forEach((s, i) => {
-        document.getElementById('hist').innerHTML += `<div class="alert alert-${i % 2 === 0 ? 'warning' : 'info'}" role="alert">
-        <a href="#" class="alert-link">${s.time}</a> ${s.ml}ml
-      </div>`
-      })
+      document.getElementById('title').innerHTML = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
+      // gh()
     }
   </script>
 </head>
@@ -63,7 +55,7 @@
   <button type="button" class="btn btn-danger" style="width:100%;margin-top:10px;" onclick="add(170);">170 (5 스푼)</button>
   <button type="button" class="btn btn-warning" style="width:100%;margin-top:10px;" onclick="add(200);">200 (6 스푼)</button>
   <button type="button" class="btn btn-info" style="width:100%;margin-top:10px;" onclick="add(235);">235 (7 스푼)</button>
-  <h5 id="h" style="margin-top:10px;">수유기록</h5>
+  <h5 id="h" style="margin-top:10px;">수유 기록</h5>
   <div id="hist">
   </div>
 </body>
