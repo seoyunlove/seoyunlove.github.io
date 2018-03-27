@@ -35,33 +35,39 @@
     var options = { weekday: 'long', month: 'long', day: 'numeric' }
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
-    var td = new Date().toLocaleDateString('ko-KR', options)
+    function getd(r) {
+      var d = new Date()
+      var n = d.toLocaleString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+      return r ? (d.getMonth() + 1) + "월 " + d.getDate() + "일" : n
+    }
+    var td = getd('r')
     function gh() {
       for (var i = 0; i < shistory.length; i++) {
-        var ss =  '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a> ' + shistory[i].ml + 'ml</div>'
+        var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a> ' + shistory[i].ml + 'ml</div>'
         document.getElementById('hist').innerHTML += ss
       }
     }
+
     function add(a) {
       if (td != new Date().toLocaleDateString('ko-KR', options)) {
         todayTotal = 0
-        td = new Date().toLocaleDateString('ko-KR', options)
+        td = getd('r')
       }
       todayTotal += a
       console.log(new Date().toLocaleDateString('ko-KR', hoptions))
       shistory.push({
-        time: new Date().toLocaleDateString('ko-KR', hoptions).split(' ').slice(3).join(' '),
+        time: getd(),
         ml: a
       })
       shistory.reverse()
       localStorage.setItem('todayTotal', todayTotal)
-      document.getElementById('title').innerText = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
+      document.getElementById('title').innerText = getd('r') + ' ' + todayTotal + 'ml'
       document.getElementById('hist').innerHTML = ''
       localStorage.setItem('shistory', JSON.stringify(shistory))
       gh()
     }
     window.onload = function () {
-      document.getElementById('title').innerHTML = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
+      document.getElementById('title').innerHTML = getd('r') + ' ' + todayTotal + 'ml'
       gh()
     }
   </script>
