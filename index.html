@@ -117,8 +117,9 @@
     //  localStorage.setItem('shistory', null)
     // localStorage.setItem('totals', null)
     // localStorage.setItem('todayTotal', null)
+    var sd = new Date()
     var strDate1 = "2017-11-7";
-    var strDate2 = "2018-3-28";
+    var strDate2 = sd.getFullYear() + '-' + (sd.getMonth() + 1) + '-' + sd.getDate()
     var arr1 = strDate1.split('-');
     var arr2 = strDate2.split('-');
     var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
