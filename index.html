@@ -15,6 +15,20 @@
       margin: 10px;
     }
   </style>
+</head>
+
+<body>
+  <h5 id="title"></h5>
+  <button type="button" class="btn btn-secondary" style="width:100%;" onclick="add(70);">70 (2 스푼)</button>
+  <button type="button" class="btn btn-primary" style="width:100%;margin-top:10px;" onclick="add(100);">100 (3 스푼)</button>
+  <button type="button" class="btn btn-success" style="width:100%;margin-top:10px;" onclick="add(135);">135 (4 스푼)</button>
+  <button type="button" class="btn btn-danger" style="width:100%;margin-top:10px;" onclick="add(170);">170 (5 스푼)</button>
+  <button type="button" class="btn btn-warning" style="width:100%;margin-top:10px;" onclick="add(200);">200 (6 스푼)</button>
+  <button type="button" class="btn btn-info" style="width:100%;margin-top:10px;" onclick="add(235);">235 (7 스푼)</button>
+  <h5 id="h" style="margin-top:10px;">수유 기록</h5>
+  <div id="hist">
+  </div>
+
   <script>
     // localStorage.setItem('shistory', null)
     var hoptions = { hour: "2-digit", minute: "2-digit" }
@@ -22,6 +36,12 @@
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
     var td = new Date().toLocaleDateString('ko-KR', options)
+    function gh() {
+      for (var i = 0; i < shistory.length; i++) {
+        var ss =  '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a> ' + shistory[i].ml + 'ml</div>'
+        document.getElementById('hist').innerHTML += ss
+      }
+    }
     function add(a) {
       if (td != new Date().toLocaleDateString('ko-KR', options)) {
         todayTotal = 0
@@ -38,26 +58,13 @@
       document.getElementById('title').innerText = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
       document.getElementById('hist').innerHTML = ''
       localStorage.setItem('shistory', JSON.stringify(shistory))
-      // gh()
+      gh()
     }
     window.onload = function () {
       document.getElementById('title').innerHTML = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
-      // gh()
+      gh()
     }
   </script>
-</head>
-
-<body>
-  <h5 id="title"></h5>
-  <button type="button" class="btn btn-secondary" style="width:100%;" onclick="add(70);">70 (2 스푼)</button>
-  <button type="button" class="btn btn-primary" style="width:100%;margin-top:10px;" onclick="add(100);">100 (3 스푼)</button>
-  <button type="button" class="btn btn-success" style="width:100%;margin-top:10px;" onclick="add(135);">135 (4 스푼)</button>
-  <button type="button" class="btn btn-danger" style="width:100%;margin-top:10px;" onclick="add(170);">170 (5 스푼)</button>
-  <button type="button" class="btn btn-warning" style="width:100%;margin-top:10px;" onclick="add(200);">200 (6 스푼)</button>
-  <button type="button" class="btn btn-info" style="width:100%;margin-top:10px;" onclick="add(235);">235 (7 스푼)</button>
-  <h5 id="h" style="margin-top:10px;">수유 기록</h5>
-  <div id="hist">
-  </div>
 </body>
 
 </html>
