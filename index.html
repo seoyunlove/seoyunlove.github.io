@@ -146,6 +146,9 @@
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
     var totals = JSON.parse(localStorage.getItem('totals')) || []
+    if (totals.indexOf('3월 27일') == -1) {
+      totals.push('3월 27일')
+    }
     var tot = getd('r')
     function getd(r) {
       var d = new Date()
@@ -219,7 +222,6 @@
         }
       }
       todayTotal += a
-      console.log(new Date().toLocaleDateString('ko-KR', hoptions))
       shistory.push({
         time: getd(),
         ml: a,
