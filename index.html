@@ -28,41 +28,13 @@
   <h5 id="h" style="margin-top:10px;">수유 기록</h5>
   <div id="hist">
   </div>
-<script type="text/javascript">
-document.getElementById('title').innerHTML = '수유 기록'
-  function setCookie(name, value, days) {
-    var expires;
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + (300 * 24 * 60 * 60 * 1000));
-      expires = "; expires=" + date.toGMTString();
-    }
-    else {
-      expires = "";
-    }
-    document.cookie = name + "=" + value + expires + "; path=/";
-  }
-
-  // Read cookie
-  function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1, c.length);
-      }
-      if (c.indexOf(nameEQ) === 0) {
-        return c.substring(nameEQ.length, c.length);
-      }
-    }
-    return null;
-  }
-  // setCookie('shistory', null)
+</body>
+<script>
+  // localStorage.setItem('shistory', null)
   var hoptions = { hour: "2-digit", minute: "2-digit" }
   var options = { weekday: 'long', month: 'long', day: 'numeric' }
-  var todayTotal = parseInt(getCookie('todayTotal')) || 0
-  var shistory = getCookie('shistory') ? JSON.parse(getCookie('shistory')) : []
+  var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
+  var shistory = JSON.parse(localStorage.getItem('shistory')) || []
   var td = new Date().toLocaleDateString('ko-KR', options)
   console.log(shistory)
   document.getElementById('title').innerHTML = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
@@ -78,10 +50,10 @@ document.getElementById('title').innerHTML = '수유 기록'
       ml: a
     })
     shistory.reverse()
-    setCookie('todayTotal', todayTotal)
+    localStorage.setItem('todayTotal', todayTotal)
     document.getElementById('title').innerText = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
     document.getElementById('hist').innerHTML = ''
-    setCookie('shistory', JSON.stringify(shistory))
+    localStorage.setItem('shistory', JSON.stringify(shistory))
     shistory.forEach((s, i) => {
       document.getElementById('hist').innerHTML += `<div class="alert alert-${i % 2 === 0 ? 'warning' : 'info'}" role="alert">
       <a href="#" class="alert-link">${s.time}</a> ${s.ml}ml
@@ -96,5 +68,5 @@ document.getElementById('title').innerHTML = '수유 기록'
     })
   }
 </script>
-</body>
+
 </html>
