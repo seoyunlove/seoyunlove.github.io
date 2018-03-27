@@ -25,32 +25,39 @@
   <button type="button" class="btn btn-danger" style="width:100%;margin-top:10px;" onclick="add(170);">170 (5 스푼)</button>
   <button type="button" class="btn btn-warning" style="width:100%;margin-top:10px;" onclick="add(200);">200 (6 스푼)</button>
   <button type="button" class="btn btn-info" style="width:100%;margin-top:10px;" onclick="add(235);">235 (7 스푼)</button>
-  <h5 id="h" style="margin-top:10px;">기록</h5>
+  <h5 id="h" style="margin-top:10px;">수유 기록+</h5>
   <div id="hist">
   </div>
 </body>
 <script>
-  function setCookie(cname, cvalue) {
-    var d = new Date();
-    d.setTime(d.getTime() + (999 * 24 * 60 * 60 * 1000));
-    var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+  function setCookie(name, value, days) {
+    var expires;
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (300 * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toGMTString();
     }
-    return "";
-}
+    else {
+      expires = "";
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+  }
+
+  // Read cookie
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1, c.length);
+      }
+      if (c.indexOf(nameEQ) === 0) {
+        return c.substring(nameEQ.length, c.length);
+      }
+    }
+    return null;
+  }
   // setCookie('shistory', null)
   var hoptions = { hour: "2-digit", minute: "2-digit" }
   var options = { weekday: 'long', month: 'long', day: 'numeric' }
