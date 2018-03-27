@@ -30,11 +30,32 @@
   </div>
 </body>
 <script>
-  // localStorage.setItem('shistory', null)
+  function setCookie(cname, cvalue) {
+    var d = new Date();
+    d.setTime(d.getTime() + (999 * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+  // setCookie('shistory', null)
   var hoptions = { hour: "2-digit", minute: "2-digit" }
   var options = { weekday: 'long', month: 'long', day: 'numeric' }
-  var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
-  var shistory = JSON.parse(localStorage.getItem('shistory')) || []
+  var todayTotal = parseInt(getCookie('todayTotal')) || 0
+  var shistory = getCookie('shistory') ? JSON.parse(getCookie('shistory')) : []
   var td = new Date().toLocaleDateString('ko-KR', options)
   console.log(shistory)
   document.getElementById('title').innerHTML = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
@@ -50,10 +71,10 @@
       ml: a
     })
     shistory.reverse()
-    localStorage.setItem('todayTotal', todayTotal)
+    setCookie('todayTotal', todayTotal)
     document.getElementById('title').innerText = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
     document.getElementById('hist').innerHTML = ''
-    localStorage.setItem('shistory', JSON.stringify(shistory))
+    setCookie('shistory', JSON.stringify(shistory))
     shistory.forEach((s, i) => {
       document.getElementById('hist').innerHTML += `<div class="alert alert-${i % 2 === 0 ? 'warning' : 'info'}" role="alert">
       <a href="#" class="alert-link">${s.time}</a> ${s.ml}ml
