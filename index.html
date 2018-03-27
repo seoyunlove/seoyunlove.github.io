@@ -31,7 +31,7 @@
       top: 0;
       /* Stay at the top */
       left: 0;
-      background-color: #111;
+      background-color: #F47983;
       /* Black*/
       overflow-x: hidden;
       /* Disable horizontal scroll */
@@ -47,7 +47,7 @@
       padding: 8px 8px 8px 32px;
       text-decoration: none;
       font-size: 25px;
-      color: #818181;
+      color: white;
       display: block;
       transition: 0.3s;
     }
@@ -136,9 +136,9 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
       document.getElementById("mySidenav").style.width = "0";
     }
     function z(n) { return (n < 10 ? '0' : '') + n }
-    //  localStorage.setItem('shistory', null)
-    //localStorage.setItem('totals', null)
-    // localStorage.setItem('todayTotal', null)
+      localStorage.setItem('shistory', null)
+    localStorage.setItem('totals', null)
+     localStorage.setItem('todayTotal', null)
     var hoptions = { hour: "2-digit", minute: "2-digit" }
     var options = { weekday: 'long', month: 'long', day: 'numeric' }
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
@@ -152,6 +152,15 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
       return r ? (d.getMonth() + 1) + "월 " + ((h < 2 ? d.getDate() -1 : d.getDate())) + "일" : n
     }
     var td = getd('r')
+    function rem(i) {
+      document.getElementById('r' + i).style.display = "none"
+      tdaa = shistory.find(function (w) { return w.id == i})
+      shistory = shistory.filter(function(shh){ return shh.id != i})
+      localStorage.setItem('shistory', JSON.stringify(shistory))
+      document.getElementById('title').innerHTML = '✅' + tot + ' ' + rtt() + 'ml'
+      lis()
+      alert(tdaa.ml + 'ml 취소되었습니다')
+    }
     function lis() {
       document.getElementById('listh').innerHTML = ''
       for (var i = totals.length - 1; i >= 0; i--) {
@@ -167,17 +176,30 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
         document.getElementById('listh').innerHTML += ss
       }
     }
+    function rtt () {
+     var i = totals.length - 1;
+        var tam = 0
+
+        for (var ai = shistory.length - 1; ai >= 0; ai--) {
+          if (shistory[ai].i == totals[i]) {
+            tam += parseInt(shistory[ai].ml)
+          }
+        }
+        return tam
+    }
     function gh() {
       for (var i = shistory.length - 1; i >= 0; i--) {
-        var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a> ' + shistory[i].ml + 'ml</div>'
+        var ss = '<div id="r'+ shistory[i].id + '" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a> ' + shistory[i].ml + 'ml<button id="' + shistory[i].id +'" type="button" class="close" data-dismiss="alert" aria-label="취소" onclick="rem(\''+ shistory[i].id + '\')"><span aria-hidden="true">&times;</span></button></div>'
         document.getElementById('hist').innerHTML += ss
       }
     }
 
     function add(a) {
+      if (a == 'null' || a == null) return
       if (a == 'a') {
         a = parseInt(document.getElementById('nn').value)
       }
+      if (isNaN(a)) return
       var d = new Date()
       var h = d.getHours()
       var n = (h < 12 ? '오전' : '오후')
@@ -196,10 +218,11 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
       shistory.push({
         time: getd(),
         ml: a,
-        i: getd('r')
+        i: getd('r'),
+        id: 'i' + Math.random() + '' + Math.random()
       })
       localStorage.setItem('todayTotal', todayTotal)
-      document.getElementById('title').innerText = '✅' + tot + ' ' + todayTotal + 'ml'
+      document.getElementById('title').innerText = '✅' + tot + ' ' + rtt() + 'ml'
       document.getElementById('hist').innerHTML = ''
       localStorage.setItem('shistory', JSON.stringify(shistory))
       gh()
@@ -223,7 +246,7 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
           localStorage.setItem(totals, JSON.stringify(totals))
         }
       }
-      document.getElementById('title').innerHTML = '✅' + tot + ' ' + todayTotal + 'ml'
+      document.getElementById('title').innerHTML = '✅' + tot + ' ' + rtt() + 'ml'
       gh()
       lis()
     }
