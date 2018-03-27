@@ -30,6 +30,7 @@
   </div>
 
   <script>
+    function z(n){return (n<10?'0':'')+n}
     // localStorage.setItem('shistory', null)
     var hoptions = { hour: "2-digit", minute: "2-digit" }
     var options = { weekday: 'long', month: 'long', day: 'numeric' }
@@ -37,7 +38,8 @@
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
     function getd(r) {
       var d = new Date()
-      var n = d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })
+      var h = d.getHours()
+      var n = (h<12? '오전 ' :'오후 ')+ (h%12 || 12) + ':' + z(d.getMinutes()) + ' '
       return r ? (d.getMonth() + 1) + "월 " + d.getDate() + "일" : n
     }
     var td = getd('r')
