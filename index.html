@@ -114,6 +114,9 @@
   <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🍼수유 기록</h5>
   <div id="listh"></div>
   <script>
+    //  localStorage.setItem('shistory', null)
+    // localStorage.setItem('totals', null)
+    // localStorage.setItem('todayTotal', null)
     var strDate1 = "2017-11-7";
 var strDate2 = "2018-3-28";
 var arr1 = strDate1.split('-');
@@ -136,9 +139,7 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
       document.getElementById("mySidenav").style.width = "0";
     }
     function z(n) { return (n < 10 ? '0' : '') + n }
-    //  localStorage.setItem('shistory', null)
-    // localStorage.setItem('totals', null)
-    // localStorage.setItem('todayTotal', null)
+
     var hoptions = { hour: "2-digit", minute: "2-digit" }
     var options = { weekday: 'long', month: 'long', day: 'numeric' }
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
