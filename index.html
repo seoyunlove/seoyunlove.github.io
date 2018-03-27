@@ -145,9 +145,12 @@
     var options = { weekday: 'long', month: 'long', day: 'numeric' }
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
-    var totals = JSON.parse(localStorage.getItem('totals')) || []
-    if (totals.indexOf('3월 27일') == -1) {
-      totals.push('3월 27일')
+    var totals = []
+
+    for(var ri=0; ri < shistory.length; ri++) {
+      if (totals.indexOf(shistory[ri].i) == -1) {
+      totals.push(shistory[ri].i)
+    }
     }
     var tot = getd('r')
     function getd(r) {
