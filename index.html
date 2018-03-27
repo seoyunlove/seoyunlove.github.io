@@ -7,6 +7,8 @@
   <title>수유량 체크</title>
   <meta property="og:type" content="website">
   <meta property="og:title" content="수유량 체크">
+  <link rel="shortcut icon" href="https://getemoji.com/assets/ico/favicon.png">
+<link rel="apple-touch-icon" href="https://getemoji.com/assets/ico/apple-touch-icon.png">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
   <style type="text/css">
@@ -100,6 +102,12 @@
   <button type="button" class="btn btn-danger" style="width:100%;margin-top:10px;" onclick="add(170);">170 (5 스푼)</button>
   <button type="button" class="btn btn-warning" style="width:100%;margin-top:10px;" onclick="add(200);">200 (6 스푼)</button>
   <button type="button" class="btn btn-info" style="width:100%;margin-top:10px;" onclick="add(235);">235 (7 스푼)</button>
+  <div class="input-group" style="margin-top: 10px;">
+      <input type="number" class="form-control" id="nn">
+      <span class="input-group-btn">
+           <button class="btn btn-default" type="button" onclick="add('a');">사랑해</button>
+      </span>
+   </div>
   <h5 id="h" style="margin-top:10px;" onclick="openNav()"></h5>
   <div id="hist">
   </div>
@@ -167,7 +175,9 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
     }
 
     function add(a) {
-      console.log(totals)
+      if (a == 'a') {
+        a = parseInt(document.getElementById('nn').value)
+      }
       var d = new Date()
       var h = d.getHours()
       var n = (h < 12 ? '오전' : '오후')
@@ -189,7 +199,7 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
         i: getd('r')
       })
       localStorage.setItem('todayTotal', todayTotal)
-      document.getElementById('title').innerText = tot + ' ' + todayTotal + 'ml'
+      document.getElementById('title').innerText = '✅' + tot + ' ' + todayTotal + 'ml'
       document.getElementById('hist').innerHTML = ''
       localStorage.setItem('shistory', JSON.stringify(shistory))
       gh()
@@ -213,7 +223,7 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
           localStorage.setItem(totals, JSON.stringify(totals))
         }
       }
-      document.getElementById('title').innerHTML = tot + ' ' + todayTotal + 'ml'
+      document.getElementById('title').innerHTML = '✅' + tot + ' ' + todayTotal + 'ml'
       gh()
       lis()
     }
