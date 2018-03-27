@@ -18,14 +18,14 @@
 </head>
 
 <body>
-  <h5 id="title"></h5>
+  <h5 id="tit"></h5>
   <button type="button" class="btn btn-secondary" style="width:100%;" onclick="add(70);">70 (2 스푼)</button>
   <button type="button" class="btn btn-primary" style="width:100%;margin-top:10px;" onclick="add(100);">100 (3 스푼)</button>
   <button type="button" class="btn btn-success" style="width:100%;margin-top:10px;" onclick="add(135);">135 (4 스푼)</button>
   <button type="button" class="btn btn-danger" style="width:100%;margin-top:10px;" onclick="add(170);">170 (5 스푼)</button>
   <button type="button" class="btn btn-warning" style="width:100%;margin-top:10px;" onclick="add(200);">200 (6 스푼)</button>
   <button type="button" class="btn btn-info" style="width:100%;margin-top:10px;" onclick="add(235);">235 (7 스푼)</button>
-  <h5 id="h" style="margin-top:10px;">수유 기록++</h5>
+  <h5 id="h" style="margin-top:10px;">수유 기록</h5>
   <div id="hist">
   </div>
 </body>
@@ -59,7 +59,7 @@
     })
   }
   window.onload = function () {
-    document.getElementById('title').innerHTML = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
+    document.getElementById('tit').innerHTML = '수유기록'
 
     shistory.forEach((s, i) => {
       document.getElementById('hist').innerHTML += `<div class="alert alert-${i % 2 === 0 ? 'warning' : 'info'}" role="alert">
