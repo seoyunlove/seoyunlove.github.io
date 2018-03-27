@@ -37,12 +37,12 @@
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
     function getd(r) {
       var d = new Date()
-      var n = d.toLocaleString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+      var n = d.toLocaleString([], { hour: '2-digit', minute: '2-digit' })
       return r ? (d.getMonth() + 1) + "월 " + d.getDate() + "일" : n
     }
     var td = getd('r')
     function gh() {
-      for (var i = 0; i < shistory.length; i++) {
+      for (var i = shistory.length - 1; i >= 0; i--) {
         var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a> ' + shistory[i].ml + 'ml</div>'
         document.getElementById('hist').innerHTML += ss
       }
@@ -50,7 +50,7 @@
 
     function add(a) {
       if (td != new Date().toLocaleDateString('ko-KR', options)) {
-        todayTotal = 0
+        // todayTotal = 0
         td = getd('r')
       }
       todayTotal += a
@@ -59,7 +59,6 @@
         time: getd(),
         ml: a
       })
-      shistory.reverse()
       localStorage.setItem('todayTotal', todayTotal)
       document.getElementById('title').innerText = getd('r') + ' ' + todayTotal + 'ml'
       document.getElementById('hist').innerHTML = ''
