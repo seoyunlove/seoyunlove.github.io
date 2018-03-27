@@ -136,9 +136,9 @@ document.getElementById('h').innerText = '💖' + parseInt(diff/currDay) + '일'
       document.getElementById("mySidenav").style.width = "0";
     }
     function z(n) { return (n < 10 ? '0' : '') + n }
-      localStorage.setItem('shistory', null)
-    localStorage.setItem('totals', null)
-     localStorage.setItem('todayTotal', null)
+    //  localStorage.setItem('shistory', null)
+    // localStorage.setItem('totals', null)
+    // localStorage.setItem('todayTotal', null)
     var hoptions = { hour: "2-digit", minute: "2-digit" }
     var options = { weekday: 'long', month: 'long', day: 'numeric' }
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
