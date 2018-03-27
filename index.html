@@ -63,7 +63,7 @@
   window.onload = function () {
     shistory.forEach((s, i) => {
       document.getElementById('hist').innerHTML += `<div class="alert alert-${i % 2 === 0 ? 'warning' : 'info'}" role="alert">
-      <a href="#" class="alert-link">${s.time}</a>${s.ml}
+      <a href="#" class="alert-link">${s.time}</a> ${s.ml}ml
     </div>`
     })
   }
