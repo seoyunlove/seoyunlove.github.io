@@ -18,21 +18,17 @@
 </head>
 
 <body>
-  <h5 id="tit"></h5>
+  <h5 id="title"></h5>
   <button type="button" class="btn btn-secondary" style="width:100%;" onclick="add(70);">70 (2 스푼)</button>
   <button type="button" class="btn btn-primary" style="width:100%;margin-top:10px;" onclick="add(100);">100 (3 스푼)</button>
   <button type="button" class="btn btn-success" style="width:100%;margin-top:10px;" onclick="add(135);">135 (4 스푼)</button>
   <button type="button" class="btn btn-danger" style="width:100%;margin-top:10px;" onclick="add(170);">170 (5 스푼)</button>
   <button type="button" class="btn btn-warning" style="width:100%;margin-top:10px;" onclick="add(200);">200 (6 스푼)</button>
   <button type="button" class="btn btn-info" style="width:100%;margin-top:10px;" onclick="add(235);">235 (7 스푼)</button>
-  <h5 id="h" style="margin-top:10px;">사랑해</h5>
+  <h5 id="h" style="margin-top:10px;">수유 기록</h5>
   <div id="hist">
   </div>
 </body>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-  crossorigin="anonymous"></script>
 <script>
   // localStorage.setItem('shistory', null)
   var hoptions = { hour: "2-digit", minute: "2-digit" }
@@ -40,6 +36,8 @@
   var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
   var shistory = JSON.parse(localStorage.getItem('shistory')) || []
   var td = new Date().toLocaleDateString('ko-KR', options)
+  console.log(shistory)
+  document.getElementById('title').innerHTML = new Date().toLocaleDateString('ko-KR', options) + ' ' + todayTotal + 'ml'
   function add(a) {
     if (td != new Date().toLocaleDateString('ko-KR', options)) {
       todayTotal = 0
@@ -63,11 +61,9 @@
     })
   }
   window.onload = function () {
-    $('#tit').html('수유기록')
-
     shistory.forEach((s, i) => {
       document.getElementById('hist').innerHTML += `<div class="alert alert-${i % 2 === 0 ? 'warning' : 'info'}" role="alert">
-      <a href="#" class="alert-link">${s.time}</a> ${s.ml}ml
+      <a href="#" class="alert-link">${s.time}</a>${s.ml}
     </div>`
     })
   }
