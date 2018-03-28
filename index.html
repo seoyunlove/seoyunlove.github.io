@@ -212,7 +212,7 @@
         }
 
         var vdv = vit.indexOf(totals[i]) == -1 ? '' : ' ✅비타민 D'
-        var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + totals[i] + '</a> ' + tam + 'ml' + vdv + '</div>'
+        var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + '</div>'
         document.getElementById('listh').innerHTML += ss
       }
     }
