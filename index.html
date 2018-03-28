@@ -123,19 +123,24 @@
     //  localStorage.setItem('shistory', null)
     // localStorage.setItem('totals', null)
     // localStorage.setItem('todayTotal', null)
-    var sd = new Date()
-    var strDate1 = "2017-11-7";
-    var strDate2 = sd.getFullYear() + '-' + (sd.getMonth() + 1) + '-' + sd.getDate()
-    var arr1 = strDate1.split('-');
-    var arr2 = strDate2.split('-');
-    var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
-    var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
+    function dday() {
+      var sd = new Date()
+      var strDate1 = "2017-11-7";
+      var strDate2 = sd.getFullYear() + '-' + (sd.getMonth() + 1) + '-' + sd.getDate()
+      var arr1 = strDate1.split('-');
+      var arr2 = strDate2.split('-');
+      var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
+      var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
 
-    var diff = dat2 - dat1;
-    var currDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
-    var currMonth = currDay * 30;// 월 만듬
-    var currYear = currMonth * 12; // 년 만듬
-    document.getElementById('h').innerText = '💖' + parseInt(diff / currDay) + '일'
+      var diff = dat2 - dat1;
+      var currDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+      var currMonth = currDay * 30;// 월 만듬
+      var currYear = currMonth * 12; // 년 만듬
+      var ldd = parseInt(diff / currDay)
+      var lm = parseInt(ldd / 30)
+      var dl = ldd % 30
+      document.getElementById('h').innerText = '💖' + ldd + '(' + lm + '개월 ' + dl + ' 일)'
+    }
 
     function openNav() {
       document.getElementById("mySidenav").style.width = "250px";
@@ -146,21 +151,21 @@
       document.getElementById("mySidenav").style.width = "0";
     }
 
-    function chvd () {
+    function chvd() {
       if (vit.indexOf(getd('r')) == -1) {
         vit.push(getd('r'))
-      localStorage.setItem('vit', JSON.stringify(vit))
+        localStorage.setItem('vit', JSON.stringify(vit))
       } else {
-        vit = vit.filter(function(v){ return v!= getd('r')})
-      localStorage.setItem('vit', JSON.stringify(vit))
+        vit = vit.filter(function (v) { return v != getd('r') })
+        localStorage.setItem('vit', JSON.stringify(vit))
       }
       lis()
     }
 
-    function vvd () {
+    function vvd() {
       if (vit.indexOf(getd('r')) !== -1) {
         document.getElementById('vdd').checked = true
-      } else{
+      } else {
         document.getElementById('vdd').checked = false
       }
     }
@@ -173,10 +178,10 @@
     var totals = []
     var vit = JSON.parse(localStorage.getItem('vit')) || []
     vit.push('3월 27일')
-    for(var ri=0; ri < shistory.length; ri++) {
+    for (var ri = 0; ri < shistory.length; ri++) {
       if (totals.indexOf(shistory[ri].i) == -1) {
-      totals.push(shistory[ri].i)
-    }
+        totals.push(shistory[ri].i)
+      }
     }
     var tot = getd('r')
     function getd(r) {
@@ -264,6 +269,7 @@
       localStorage.setItem('shistory', JSON.stringify(shistory))
       gh()
       lis()
+      dday()
     }
     window.onload = function () {
       var d = new Date()
@@ -281,6 +287,7 @@
       }
       document.getElementById('title').innerHTML = '✅' + tot + ' ' + rtt() + 'ml'
       gh()
+      dday()
       vvd()
       lis()
     }
