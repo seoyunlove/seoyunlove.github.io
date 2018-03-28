@@ -139,7 +139,7 @@
       var ldd = parseInt(diff / currDay)
       var lm = parseInt(ldd / 30)
       var dl = ldd % 30
-      document.getElementById('h').innerText = '💖+' + ldd + ' (' + lm + '개월 ' + dl + '일)'
+      document.getElementById('h').innerText = '💖+' + ldd + ' (' + lm + '개월 ' + dl + '일) ' + rtt() + 'ml'
     }
 
     function openNav() {
@@ -203,6 +203,19 @@
       document.getElementById('title').innerHTML = '🍼' + tot + ' ' + rtt() + 'ml'
       lis()
     }
+    function det (t) {
+      var rs = ''
+      for (var i = shistory.length - 1; i >= 0; i--) {
+        if(shistory[i].i.indexOf('일')==-1) {
+            shistory[i].i += '일'
+          }
+        if (shistory[i].i == t) {
+          var ss = '<div><a class="alert-link">' + shistory[i].time + '</a>🍼' + shistory[i].ml + 'ml</div>'
+          rs += ss
+        }
+      }
+      return rs
+    }
     function lis() {
       document.getElementById('listh').innerHTML = ''
       for (var i = totals.length - 1; i >= 0; i--) {
@@ -221,11 +234,20 @@
         if (totals[i].indexOf('일') == -1) {
           totals[i] += '일'
         }
-        var ss = '<div data-toggle="collapse" href="#c' + i +'" role="button" aria-expanded="false" aria-controls="#c' + i +'" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + '</div>'
-        ss += '<div id="c' + i +'" class="collapse"><div class="card card-body">a</div></div>'
+
+        var sii = '<div id="c' + i +'" class="collapse">' + det(totals[i]) + '</div>'
+        var ss = '<div onclick="tss(c' + i + ')" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + sii + '</div>'
         document.getElementById('listh').innerHTML += ss
       }
     }
+    function tss(i) {
+    var x = i;
+    if (x.style.display === "none" || !x.style.display) {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
     function rtt() {
       var i = totals.length - 1;
       var tam = 0
