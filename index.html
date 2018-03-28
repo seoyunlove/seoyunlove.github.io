@@ -188,7 +188,8 @@
       var d = new Date()
       var h = d.getHours()
       var n = (h < 12 ? '오전 ' : '오후 ') + (h % 12 || 12) + ':' + z(d.getMinutes()) + ' '
-      return r ? (d.getMonth() + 1) + "월 " + ((h < 2 ? d.getDate() - 1 : d.getDate())) + "일" : n
+
+      return r ? (d.getMonth() + 1) + "월 " + ((h < 2 ? d.setDate(d.getDate()-1) && d.getDate() : d.getDate())) + "일" : n
     }
     var td = getd('r')
     function rem(i) {
