@@ -154,10 +154,10 @@
         vit = vit.filter(function(v){ return v!= getd('r')})
       localStorage.setItem('vit', JSON.stringify(vit))
       }
+      lis()
     }
 
     function vvd () {
-      vit = JSON.parse(localStorage.getItem('vit')) || ['3월 27일']
       if (vit.indexOf(getd('r')) !== -1) {
         document.getElementById('vdd').checked = true
       } else{
@@ -171,8 +171,8 @@
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
     var totals = []
-    var vit = JSON.parse(localStorage.getItem('vit')) || ['3월 27일']
-
+    var vit = JSON.parse(localStorage.getItem('vit')) || []
+    vit.push('3월 27일')
     for(var ri=0; ri < shistory.length; ri++) {
       if (totals.indexOf(shistory[ri].i) == -1) {
       totals.push(shistory[ri].i)
