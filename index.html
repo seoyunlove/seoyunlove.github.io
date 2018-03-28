@@ -133,7 +133,7 @@
       var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
 
       var diff = dat2 - dat1;
-      var currDay = 24 * 60 * 60 * 1000;// 시 * 분 * 초 * 밀리세컨
+      var currDay = 24 * 60 * 60 * 1000;
       var currMonth = currDay * 30;// 월 만듬
       var currYear = currMonth * 12; // 년 만듬
       var ldd = parseInt(diff / currDay)
@@ -202,6 +202,7 @@
       localStorage.setItem('shistory', JSON.stringify(shistory))
       document.getElementById('title').innerHTML = '🍼' + tot + ' ' + rtt() + 'ml'
       lis()
+      dday()
     }
     function det (t) {
       var rs = ''
