@@ -108,6 +108,12 @@
       <button class="btn btn-default" type="button" onclick="add('a');">사랑해</button>
     </span>
   </div>
+  <div class="form-check" style="margin-top: 10px;">
+    <input class="form-check-input" type="checkbox" value="" id="vdd" onclick="chvd()">
+    <label class="form-check-label" for="vdd">
+      비타민D 섭취 (매일마다 반드시 필수 👨‍👩‍👧 👧)
+    </label>
+  </div>
   <h5 id="h" style="margin-top:10px;" onclick="openNav()"></h5>
   <div id="hist">
   </div>
@@ -139,6 +145,25 @@
     function closeNav() {
       document.getElementById("mySidenav").style.width = "0";
     }
+
+    function chvd () {
+      if (vit.indexOf(getd('r')) == -1) {
+        vit.push(getd('r'))
+      localStorage.setItem('vit', JSON.stringify(vit))
+      } else {
+        vit = vit.filter(function(v){ return v!= getd('r')})
+      localStorage.setItem('vit', JSON.stringify(vit))
+      }
+    }
+
+    function vvd () {
+      vit = JSON.parse(localStorage.getItem('vit')) || []
+      if (vit.indexOf(getd('r')) !== -1) {
+        document.getElementById('vdd').checked = true
+      } else{
+        document.getElementById('vdd').checked = false
+      }
+    }
     function z(n) { return (n < 10 ? '0' : '') + n }
 
     var hoptions = { hour: "2-digit", minute: "2-digit" }
@@ -146,6 +171,7 @@
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
     var totals = []
+    var vit = JSON.parse(localStorage.getItem('vit')) || []
 
     for(var ri=0; ri < shistory.length; ri++) {
       if (totals.indexOf(shistory[ri].i) == -1) {
@@ -196,7 +222,6 @@
       return tam
     }
     function gh() {
-      console.log(totals)
       for (var i = shistory.length - 1; i >= 0; i--) {
         if (shistory[i].i == totals[totals.length - 1]) {
           var ss = '<div id="r' + shistory[i].id + '" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a> ' + shistory[i].ml + 'ml<button id="' + shistory[i].id + '" type="button" class="close" data-dismiss="alert" aria-label="취소" onclick="rem(\'' + shistory[i].id + '\')"><span aria-hidden="true">&times;</span></button></div>'
@@ -240,10 +265,6 @@
       lis()
     }
     window.onload = function () {
-      if (totals.indexOf(getd('r')) === -1) {
-        totals.push(getd('r'))
-        localStorage.setItem(totals, JSON.stringify(totals))
-      }
       var d = new Date()
       var h = d.getHours()
       var n = (h < 12 ? '오전' : '오후')
@@ -259,6 +280,7 @@
       }
       document.getElementById('title').innerHTML = '✅' + tot + ' ' + rtt() + 'ml'
       gh()
+      vvd()
       lis()
     }
   </script>
