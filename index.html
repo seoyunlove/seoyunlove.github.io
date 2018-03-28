@@ -209,7 +209,10 @@
         var tam = 0
 
         for (var ai = shistory.length - 1; ai >= 0; ai--) {
-          if (shistory[ai].i.replace(/\D/g, '') == totals[i].replace(/\D/g, '')) {
+          if(shistory[ai].i.indexOf('일')==-1) {
+            shistory[ai].i += '일'
+          }
+          if (shistory[ai].i == totals[i]) {
             tam += parseInt(shistory[ai].ml)
           }
         }
@@ -218,16 +221,22 @@
         if (totals[i].indexOf('일') == -1) {
           totals[i] += '일'
         }
-        var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + '</div>'
+        var ss = '<div data-toggle="collapse" href="#c' + i +'" role="button" aria-expanded="false" aria-controls="#c' + i +'" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + '</div>'
+        ss += '<div id="c' + i +'" class="collapse"><div class="card card-body">a</div></div>'
         document.getElementById('listh').innerHTML += ss
       }
     }
     function rtt() {
       var i = totals.length - 1;
       var tam = 0
-
       for (var ai = shistory.length - 1; ai >= 0; ai--) {
-        if (shistory[ai].i == totals[i]) {
+        if(shistory[ai].i.indexOf('일')==-1) {
+            shistory[ai].i += '일'
+          }
+          if(totals[i].indexOf('일')==-1) {
+            totals[i] += '일'
+          }
+        if (shistory[ai].i == getd('r')) {
           tam += parseInt(shistory[ai].ml)
         }
       }
@@ -235,7 +244,10 @@
     }
     function gh() {
       for (var i = shistory.length - 1; i >= 0; i--) {
-        if (shistory[i].i.replace(/\D/g, '') == totals[totals.length - 1].replace(/\D/g, '')) {
+        if(shistory[i].i.indexOf('일')==-1) {
+            shistory[i].i += '일'
+          }
+        if (shistory[i].i == getd('r')) {
           var ss = '<div id="r' + shistory[i].id + '" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a>🍼' + shistory[i].ml + 'ml<button id="' + shistory[i].id + '" type="button" class="close" data-dismiss="alert" aria-label="취소" onclick="rem(\'' + shistory[i].id + '\')"><span aria-hidden="true">&times;</span></button></div>'
           document.getElementById('hist').innerHTML += ss
         }
