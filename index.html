@@ -157,7 +157,7 @@
     }
 
     function vvd () {
-      vit = JSON.parse(localStorage.getItem('vit')) || []
+      vit = JSON.parse(localStorage.getItem('vit')) || ['3월 27일']
       if (vit.indexOf(getd('r')) !== -1) {
         document.getElementById('vdd').checked = true
       } else{
@@ -171,7 +171,7 @@
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
     var totals = []
-    var vit = JSON.parse(localStorage.getItem('vit')) || []
+    var vit = JSON.parse(localStorage.getItem('vit')) || ['3월 27일']
 
     for(var ri=0; ri < shistory.length; ri++) {
       if (totals.indexOf(shistory[ri].i) == -1) {
@@ -206,7 +206,8 @@
           }
         }
 
-        var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + totals[i] + '</a> ' + tam + 'ml</div>'
+        var vdv = vit.indexOf(totals[i]) == -1 ? '' : ' ✅비타민 D'
+        var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + totals[i] + '</a> ' + tam + 'ml' + vdv + '</div>'
         document.getElementById('listh').innerHTML += ss
       }
     }
