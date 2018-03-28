@@ -117,7 +117,7 @@
   <h5 id="h" style="margin-top:10px;" onclick="openNav()"></h5>
   <div id="hist">
   </div>
-  <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🍼수유 기록</h5>
+  <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🗓수유 기록</h5>
   <div id="listh"></div>
   <script>
     //  localStorage.setItem('shistory', null)
@@ -139,7 +139,7 @@
       var ldd = parseInt(diff / currDay)
       var lm = parseInt(ldd / 30)
       var dl = ldd % 30
-      document.getElementById('h').innerText = '💖' + ldd + '(' + lm + '개월 ' + dl + ' 일)'
+      document.getElementById('h').innerText = '💖+' + ldd + ' (' + lm + '개월 ' + dl + ' 일)'
     }
 
     function openNav() {
@@ -196,7 +196,7 @@
       tdaa = shistory.find(function (w) { return w.id == i })
       shistory = shistory.filter(function (shh) { return shh.id != i })
       localStorage.setItem('shistory', JSON.stringify(shistory))
-      document.getElementById('title').innerHTML = '✅' + tot + ' ' + rtt() + 'ml'
+      document.getElementById('title').innerHTML = '🍼' + tot + ' ' + rtt() + 'ml'
       lis()
       alert(tdaa.ml + 'ml 취소되었습니다')
     }
@@ -264,7 +264,7 @@
         id: 'i' + Math.random() + '' + Math.random()
       })
       localStorage.setItem('todayTotal', todayTotal)
-      document.getElementById('title').innerText = '✅' + tot + ' ' + rtt() + 'ml'
+      document.getElementById('title').innerText = '🍼' + tot + ' ' + rtt() + 'ml'
       document.getElementById('hist').innerHTML = ''
       localStorage.setItem('shistory', JSON.stringify(shistory))
       gh()
@@ -285,7 +285,7 @@
           localStorage.setItem(totals, JSON.stringify(totals))
         }
       }
-      document.getElementById('title').innerHTML = '✅' + tot + ' ' + rtt() + 'ml'
+      document.getElementById('title').innerHTML = '🍼' + tot + ' ' + rtt() + 'ml'
       gh()
       dday()
       vvd()
