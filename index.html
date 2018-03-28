@@ -212,6 +212,9 @@
         }
 
         var vdv = vit.indexOf(totals[i]) == -1 ? '' : ' ✅비타민 D'
+        if (totals[i].indexOf('일') == -1) {
+          totals[i] += '일'
+        }
         var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + '</div>'
         document.getElementById('listh').innerHTML += ss
       }
@@ -229,7 +232,7 @@
     }
     function gh() {
       for (var i = shistory.length - 1; i >= 0; i--) {
-        if (shistory[i].i == totals[totals.length - 1]) {
+        if (shistory[i].i.replace(/\D/g, '') == totals[totals.length - 1].replace(/\D/g, '')) {
           var ss = '<div id="r' + shistory[i].id + '" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a>🍼' + shistory[i].ml + 'ml<button id="' + shistory[i].id + '" type="button" class="close" data-dismiss="alert" aria-label="취소" onclick="rem(\'' + shistory[i].id + '\')"><span aria-hidden="true">&times;</span></button></div>'
           document.getElementById('hist').innerHTML += ss
         }
