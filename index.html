@@ -230,7 +230,7 @@
     function gh() {
       for (var i = shistory.length - 1; i >= 0; i--) {
         if (shistory[i].i == totals[totals.length - 1]) {
-          var ss = '<div id="r' + shistory[i].id + '" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a> ' + shistory[i].ml + 'ml<button id="' + shistory[i].id + '" type="button" class="close" data-dismiss="alert" aria-label="취소" onclick="rem(\'' + shistory[i].id + '\')"><span aria-hidden="true">&times;</span></button></div>'
+          var ss = '<div id="r' + shistory[i].id + '" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a>🍼' + shistory[i].ml + 'ml<button id="' + shistory[i].id + '" type="button" class="close" data-dismiss="alert" aria-label="취소" onclick="rem(\'' + shistory[i].id + '\')"><span aria-hidden="true">&times;</span></button></div>'
           document.getElementById('hist').innerHTML += ss
         }
       }
