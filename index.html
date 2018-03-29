@@ -120,7 +120,7 @@
   <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🗓수유 기록</h5>
   <div id="listh"></div>
   <script>
-    //  localStorage.setItem('shistory', null)
+    // localStorage.setItem('shistory', null)
     // localStorage.setItem('totals', null)
     // localStorage.setItem('todayTotal', null)
     function dday() {
@@ -218,6 +218,15 @@
       return rs
     }
     function lis() {
+      shistory = JSON.parse(localStorage.getItem('shistory')) || []
+      for (var ri = 0; ri < shistory.length; ri++) {
+      if (shistory[ri].i && shistory[ri].i.indexOf('일')==-1) {
+        shistory[ri].i += '일'
+      }
+      if (totals.indexOf(shistory[ri].i) == -1) {
+        totals.push(shistory[ri].i)
+      }
+    }
       document.getElementById('listh').innerHTML = ''
       for (var i = totals.length - 1; i >= 0; i--) {
         var tam = 0
@@ -256,7 +265,7 @@
         if(shistory[ai].i.indexOf('일')==-1) {
             shistory[ai].i += '일'
           }
-          if(totals[i].indexOf('일')==-1) {
+          if(totals[i] && totals[i].indexOf('일')==-1) {
             totals[i] += '일'
           }
         if (shistory[ai].i == getd('r')) {
