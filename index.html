@@ -68,6 +68,9 @@
       margin-left: 50px;
     }
 
+    .alert {
+      margin-bottom: 10px !important;
+    }
     /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 
     #main {
@@ -119,10 +122,57 @@
   </div>
   <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🗓수유 기록</h5>
   <div id="listh"></div>
+  <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🗓기념일</h5>
+  <div id="spe"></div>
+  <button onclick="dspp('r')" class="btn btn-default dropdown-toggle" type="button" style="width:100%" aria-expanded="false">
+    + 더보기
+    <span class="caret"></span>
+  </button>
   <script>
     // localStorage.setItem('shistory', null)
     // localStorage.setItem('totals', null)
     // localStorage.setItem('todayTotal', null)
+
+    var fdv = 100
+    var lff = 1
+    function dspp(r) {
+      var sd
+      var days = []
+      for (var q = 0; q <= 10; q++) {
+        fdv += 50
+        days.push(fdv)
+      }
+      var rs = ''
+      for (var i = 0; i < days.length; i++) {
+        sd = new Date("2017-11-7")
+        sd.setDate(sd.getDate() + days[i])
+        var rd = sd.getFullYear() + '년 ' + (sd.getMonth() + 1) + "월 " + sd.getDate() + "일"
+
+        var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'primary' : 'success') + '" role="alert"><a class="alert-link">' + days[i] + '일</a> ' + rd + '</div>'
+        rs += ss
+
+        if ((days[i] <= 365 * lff) && (365 * lff <= days[i] + 50)) {
+          if (sd.getFullYear() == 2018) days[i] = '첫 돌'
+          if (sd.getFullYear() == 2019) days[i] = '두 돌'
+          if (sd.getFullYear() == 2020) days[i] = '세 돌'
+          if (sd.getFullYear() > 2020) {
+            days[i] = (sd.getFullYear() - 2018 + 1) + '번째 생일'
+          }
+          lff++
+
+          rd = sd.getFullYear() + '년 11월 7일'
+          var ss = '<div class="alert" role="alert"><a class="alert-link">🎂' + days[i] + '</a> ' + rd + ' 🎉</div>'
+          rs += ss
+        }
+      }
+
+      if (r) {
+        document.getElementById('spe').innerHTML += rs
+      } else {
+        document.getElementById('spe').innerHTML = rs
+      }
+
+    }
     function dday() {
       var sd = new Date()
       var strDate1 = "2017-11-7";
@@ -179,7 +229,7 @@
     var vit = JSON.parse(localStorage.getItem('vit')) || []
     vit.push('3월 27일')
     for (var ri = 0; ri < shistory.length; ri++) {
-      if (shistory[ri].i && shistory[ri].i.indexOf('일')==-1) {
+      if (shistory[ri].i && shistory[ri].i.indexOf('일') == -1) {
         shistory[ri].i += '일'
       }
       if (totals.indexOf(shistory[ri].i) == -1) {
@@ -192,7 +242,7 @@
       var h = d.getHours()
       var n = (h < 12 ? '오전 ' : '오후 ') + (h % 12 || 12) + ':' + z(d.getMinutes()) + ' '
 
-      return r ? h < 2 ? d.setDate(d.getDate()-1) && (d.getMonth() + 1) + "월 " + d.getDate() + "일" : (d.getMonth() + 1) + "월 " + d.getDate() + "일" : n
+      return r ? h < 2 ? d.setDate(d.getDate() - 1) && (d.getMonth() + 1) + "월 " + d.getDate() + "일" : (d.getMonth() + 1) + "월 " + d.getDate() + "일" : n
     }
     var td = getd('r')
     function rem(i) {
@@ -204,12 +254,12 @@
       lis()
       dday()
     }
-    function det (t) {
+    function det(t) {
       var rs = ''
       for (var i = shistory.length - 1; i >= 0; i--) {
-        if(shistory[i].i.indexOf('일')==-1) {
-            shistory[i].i += '일'
-          }
+        if (shistory[i].i.indexOf('일') == -1) {
+          shistory[i].i += '일'
+        }
         if (shistory[i].i == t) {
           var ss = '<div><a class="alert-link">' + shistory[i].time + '</a>🍼' + shistory[i].ml + 'ml</div>'
           rs += ss
@@ -220,19 +270,19 @@
     function lis() {
       shistory = JSON.parse(localStorage.getItem('shistory')) || []
       for (var ri = 0; ri < shistory.length; ri++) {
-      if (shistory[ri].i && shistory[ri].i.indexOf('일')==-1) {
-        shistory[ri].i += '일'
+        if (shistory[ri].i && shistory[ri].i.indexOf('일') == -1) {
+          shistory[ri].i += '일'
+        }
+        if (totals.indexOf(shistory[ri].i) == -1) {
+          totals.push(shistory[ri].i)
+        }
       }
-      if (totals.indexOf(shistory[ri].i) == -1) {
-        totals.push(shistory[ri].i)
-      }
-    }
       document.getElementById('listh').innerHTML = ''
       for (var i = totals.length - 1; i >= 0; i--) {
         var tam = 0
 
         for (var ai = shistory.length - 1; ai >= 0; ai--) {
-          if(shistory[ai].i.indexOf('일')==-1) {
+          if (shistory[ai].i.indexOf('일') == -1) {
             shistory[ai].i += '일'
           }
           if (shistory[ai].i == totals[i]) {
@@ -245,29 +295,29 @@
           totals[i] += '일'
         }
 
-        var sii = '<div id="c' + i +'" class="collapse">' + det(totals[i]) + '</div>'
+        var sii = '<div id="c' + i + '" class="collapse">' + det(totals[i]) + '</div>'
         var ss = '<div onclick="tss(c' + i + ')" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + sii + '</div>'
         document.getElementById('listh').innerHTML += ss
       }
     }
     function tss(i) {
-    var x = i;
-    if (x.style.display === "none" || !x.style.display) {
+      var x = i;
+      if (x.style.display === "none" || !x.style.display) {
         x.style.display = "block";
-    } else {
+      } else {
         x.style.display = "none";
+      }
     }
-}
     function rtt() {
       var i = totals.length - 1;
       var tam = 0
       for (var ai = shistory.length - 1; ai >= 0; ai--) {
-        if(shistory[ai].i.indexOf('일')==-1) {
-            shistory[ai].i += '일'
-          }
-          if(totals[i] && totals[i].indexOf('일')==-1) {
-            totals[i] += '일'
-          }
+        if (shistory[ai].i.indexOf('일') == -1) {
+          shistory[ai].i += '일'
+        }
+        if (totals[i] && totals[i].indexOf('일') == -1) {
+          totals[i] += '일'
+        }
         if (shistory[ai].i == getd('r')) {
           tam += parseInt(shistory[ai].ml)
         }
@@ -276,9 +326,9 @@
     }
     function gh() {
       for (var i = shistory.length - 1; i >= 0; i--) {
-        if(shistory[i].i.indexOf('일')==-1) {
-            shistory[i].i += '일'
-          }
+        if (shistory[i].i.indexOf('일') == -1) {
+          shistory[i].i += '일'
+        }
         if (shistory[i].i == getd('r')) {
           var ss = '<div id="r' + shistory[i].id + '" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a>🍼' + shistory[i].ml + 'ml<button id="' + shistory[i].id + '" type="button" class="close" data-dismiss="alert" aria-label="취소" onclick="rem(\'' + shistory[i].id + '\')"><span aria-hidden="true">&times;</span></button></div>'
           document.getElementById('hist').innerHTML += ss
@@ -341,6 +391,7 @@
       dday()
       vvd()
       lis()
+      dspp()
     }
   </script>
 </body>
