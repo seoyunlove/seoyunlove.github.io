@@ -143,8 +143,8 @@
       }
       var rs = ''
       for (var i = 0; i < days.length; i++) {
-        sd = new Date("2017-11-7")
-        // sd.setDate(parseInt(sd.getDate()) + parseInt(days[i]))
+        sd = new Date(2017,10,7)
+        sd.setDate(parseInt(sd.getDate()) + parseInt(days[i]))
         var rd = sd.getFullYear() + '년 ' + (sd.getMonth() + 1) + "월 " + sd.getDate() + "일"
 
         var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'primary' : 'success') + '" role="alert"><a class="alert-link">' + days[i] + '일</a> ' + rd + '</div>'
