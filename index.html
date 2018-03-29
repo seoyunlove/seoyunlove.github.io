@@ -138,7 +138,7 @@
       var sd
       var days = []
       for (var q = 0; q <= 10; q++) {
-        fdv += 50
+        fdv += 100
         days.push(fdv)
       }
       var rs = ''
@@ -150,11 +150,12 @@
         var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'primary' : 'success') + '" role="alert"><a class="alert-link">' + days[i] + '일</a> ' + rd + '</div>'
         rs += ss
 
-        if ((days[i] <= 365 * lff) && (365 * lff <= days[i] + 50)) {
+        if ((days[i] <= 365 * lff) && (365 * lff <= days[i] + 100)) {
           if (sd.getFullYear() == 2018) days[i] = '첫 돌'
           if (sd.getFullYear() == 2019) days[i] = '두 돌'
           if (sd.getFullYear() == 2020) days[i] = '세 돌'
-          if (sd.getFullYear() > 2020) {
+          if (sd.getFullYear() == 2021) days[i] = '네 돌'
+          if (sd.getFullYear() > 2022) {
             days[i] = (sd.getFullYear() - 2018 + 1) + '번째 생일'
           }
           lff++
