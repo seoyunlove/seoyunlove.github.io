@@ -96,6 +96,7 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#title" onclick="closeNav()">오늘</a>
     <a href="#vh" onclick="closeNav()">수유 기록 보기</a>
+    <a href="#spe" onclick="closeNav()">기념일</a>
     <a href="#lv" onclick="closeNav()">서윤아 사랑해</a>
   </div>
   <h5 id="title" onclick="openNav()"></h5>
@@ -122,11 +123,9 @@
   </div>
   <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🗓수유 기록</h5>
   <div id="listh"></div>
-  <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🗓기념일</h5>
+  <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🎂기념일</h5>
   <div id="spe"></div>
-  <button onclick="dspp('r')" class="btn btn-default dropdown-toggle" type="button" style="width:100%" aria-expanded="false">
-    + 더보기
-    <span class="caret"></span>
+  <button onclick="dspp('r')" class="btn btn-default dropdown-toggle" type="button" style="width:100%" aria-expanded="false">+ 기념일 더보기<span class="caret"></span>
   </button>
   <script>
     // localStorage.setItem('shistory', null)
@@ -145,7 +144,7 @@
       var rs = ''
       for (var i = 0; i < days.length; i++) {
         sd = new Date("2017-11-7")
-        sd.setDate(sd.getDate() + days[i])
+        sd.setDate(parseInt(sd.getDate()) + parseInt(days[i]))
         var rd = sd.getFullYear() + '년 ' + (sd.getMonth() + 1) + "월 " + sd.getDate() + "일"
 
         var ss = '<div class="alert alert-' + (i % 2 === 0 ? 'primary' : 'success') + '" role="alert"><a class="alert-link">' + days[i] + '일</a> ' + rd + '</div>'
