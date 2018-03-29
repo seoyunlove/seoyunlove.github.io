@@ -179,7 +179,7 @@
     var vit = JSON.parse(localStorage.getItem('vit')) || []
     vit.push('3월 27일')
     for (var ri = 0; ri < shistory.length; ri++) {
-      if (shistory[ri].i.indexOf('일')==-1) {
+      if (shistory[ri].i && shistory[ri].i.indexOf('일')==-1) {
         shistory[ri].i += '일'
       }
       if (totals.indexOf(shistory[ri].i) == -1) {
