@@ -184,10 +184,10 @@
       var currDay = 24 * 60 * 60 * 1000;
       var currMonth = currDay * 30;// 월 만듬
       var currYear = currMonth * 12; // 년 만듬
-      var ldd = parseInt(diff / currDay)
+      var ldd = parseInt(diff / currDay) + 1
       var lm = parseInt(ldd / 30)
       var dl = ldd % 30
-      document.getElementById('h').innerText = '💖+' + (ldd+1) + ' (' + lm + '개월 ' + dl + '일) ' + rtt() + 'ml'
+      document.getElementById('h').innerText = '💖+' + (ldd) + ' (' + lm + '개월 ' + dl + '일) ' + rtt() + 'ml'
     }
 
     function openNav() {
