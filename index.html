@@ -236,13 +236,7 @@
         totals.push(shistory[ri].i)
       }
     }
-    var tot = getd('r')
-    shistory.push({
-      time: '오전 2:00',
-      ml: 170,
-      i: '4월 11일',
-      id: 'i' + Math.random() + '' + Math.random()
-    })
+    var tot = getd('r') 
     function getd(r) {
       var d = new Date()
       var h = d.getHours()
@@ -274,24 +268,33 @@
       return rs
     }
     function lis() {
-      for (var ri = 0; ri < shistory.length; ri++) {
-        if (shistory[ri].i && shistory[ri].i.indexOf('일') == -1) {
-          shistory[ri].i += '일'
+      var hhistory = shistory.filter(function(h){
+        return (h.time !=='오전 2:00' && h.i !=='4월 11일')
+      })
+      hhistory.push({
+      time: '오전 2:00',
+      ml: 170,
+      i: '4월 11일',
+      id: 'i' + Math.random() + '' + Math.random()
+    })
+      for (var ri = 0; ri < hhistory.length; ri++) {
+        if (hhistory[ri].i && hhistory[ri].i.indexOf('일') == -1) {
+          hhistory[ri].i += '일'
         }
-        if (totals.indexOf(shistory[ri].i) == -1) {
-          totals.push(shistory[ri].i)
+        if (totals.indexOf(hhistory[ri].i) == -1) {
+          totals.push(hhistory[ri].i)
         }
       }
       document.getElementById('listh').innerHTML = ''
       for (var i = totals.length - 1; i >= 0; i--) {
         var tam = 0
 
-        for (var ai = shistory.length - 1; ai >= 0; ai--) {
-          if (shistory[ai].i.indexOf('일') == -1) {
-            shistory[ai].i += '일'
+        for (var ai = hhistory.length - 1; ai >= 0; ai--) {
+          if (hhistory[ai].i.indexOf('일') == -1) {
+            hhistory[ai].i += '일'
           }
-          if (shistory[ai].i == totals[i]) {
-            tam += parseInt(shistory[ai].ml)
+          if (hhistory[ai].i == totals[i]) {
+            tam += parseInt(hhistory[ai].ml)
           }
         }
 
