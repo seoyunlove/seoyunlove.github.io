@@ -236,6 +236,9 @@
         totals.push(shistory[ri].i)
       }
     }
+    shistory = shistory.filter(function(h){
+        return (h.time !=='오전 2:00' && h.i !=='4월 11일')
+      })
     var tot = getd('r') 
     function getd(r) {
       var d = new Date()
@@ -268,9 +271,7 @@
       return rs
     }
     function lis() {
-      var hhistory = shistory.filter(function(h){
-        return (h.time !=='오전 2:00' && h.i !=='4월 11일')
-      })
+      var hhistory = shistory
       hhistory.push({
       time: '오전 2:00',
       ml: 170,
