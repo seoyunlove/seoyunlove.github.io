@@ -225,9 +225,6 @@
     var options = { weekday: 'long', month: 'long', day: 'numeric' }
     var todayTotal = parseInt(localStorage.getItem('todayTotal')) || 0
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
-    shistory = shistory.filter(function(h){
-        return (h.time !=='오전 2:00' && h.i !=='4월 11일')
-    })
     var totals = []
     var vit = JSON.parse(localStorage.getItem('vit')) || []
     vit.push('3월 27일')
@@ -272,12 +269,6 @@
     }
     function lis() {
       var hhistory = shistory
-      hhistory.push({
-      time: '오전 2:00',
-      ml: 170,
-      i: '4월 11일',
-      id: 'i' + Math.random() + '' + Math.random()
-    })
       for (var ri = 0; ri < hhistory.length; ri++) {
         if (hhistory[ri].i && hhistory[ri].i.indexOf('일') == -1) {
           hhistory[ri].i += '일'
