@@ -110,19 +110,15 @@
   <div class="input-group" style="margin-top: 10px;">
     <input type="number" class="form-control" id="nn">
     <span class="input-group-btn">
-      <button class="btn btn-default" type="button" onclick="add('a');">사랑해</button>
+      <button class="btn btn-default" type="button" style="margin-left:10px;background: #F47983; color:white;" onclick="add('a');">🍼 분유</button>
+      <button type="button btn-info" class="btn" style="margin-left:10px;background: #F47983; color:white;" onclick="add('e');">🍱 이유식</button>
     </span>
   </div>
   <div class="form-check" style="margin-top: 10px;">
     <input class="form-check-input" type="checkbox" value="" id="vdd" onclick="chvd()">
     <label class="form-check-label" for="vdd">
-      비타민D
+      비타민D 섭취 (매일 반드시 필수 👨‍👩‍👧 👧)
     </label>
-    <span style="float: right;">
-      <button type="button btn-info" class="btn" style="background: #F47983; color:white;" onclick="add('e');">
-        이유식 기록하기
-      </button>
-    </span>
   </div>
   <h5 id="h" style="margin-top:10px;" onclick="openNav()"></h5>
   <div id="hist">
@@ -319,17 +315,18 @@
       }
     }
     function rtt() {
+      var ihistory = shistory.filter(function(s){return(s.type!=='e')})
       var i = totals.length - 1;
       var tam = 0
-      for (var ai = shistory.length - 1; ai >= 0; ai--) {
-        if (shistory[ai].i.indexOf('일') == -1) {
-          shistory[ai].i += '일'
+      for (var ai = ihistory.length - 1; ai >= 0; ai--) {
+        if (ihistory[ai].i.indexOf('일') == -1) {
+          ihistory[ai].i += '일'
         }
         if (totals[i] && totals[i].indexOf('일') == -1) {
           totals[i] += '일'
         }
-        if (shistory[ai].i == getd('r')) {
-          tam += parseInt(shistory[ai].ml)
+        if (ihistory[ai].i == getd('r')) {
+          tam += parseInt(ihistory[ai].ml)
         }
       }
       return tam
