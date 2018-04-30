@@ -261,7 +261,8 @@
           shistory[i].i += '일'
         }
         if (shistory[i].i == t) {
-          var ss = '<div><a class="alert-link">' + shistory[i].time + '</a>🍼' + shistory[i].ml + 'ml</div>'
+          var ty = shistory[i].type === 'e' ? '🍱' : '🍼'
+          var ss = '<div><a class="alert-link">' + shistory[i].time + '</a>' + ty + shistory[i].ml + 'ml</div>'
           rs += ss
         }
       }
@@ -302,7 +303,7 @@
         er = 0 ? '' : ' 🍱' + er + 'ml'
 
         var sii = '<div id="c' + i + '" class="collapse">' + det(totals[i]) + '</div>'
-        var ss = '<div onclick="tss(c' + i + ')" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + sii + er + '</div>'
+        var ss = '<div onclick="tss(c' + i + ')" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + sii + er + vdv + '</div>'
         document.getElementById('listh').innerHTML += ss
       }
     }
