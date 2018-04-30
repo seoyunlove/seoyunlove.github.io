@@ -319,7 +319,7 @@
       var i = totals.length - 1;
       var tam = 0
       for (var ai = ihistory.length - 1; ai >= 0; ai--) {
-        if (ihistory[ai].i.indexOf('일') == -1) {
+        if (ihistory[ai].i && ihistory[ai].i.indexOf('일') == -1) {
           ihistory[ai].i += '일'
         }
         if (totals[i] && totals[i].indexOf('일') == -1) {
@@ -333,7 +333,7 @@
     }
     function gh() {
       for (var i = shistory.length - 1; i >= 0; i--) {
-        if (shistory[i].i.indexOf('일') == -1) {
+        if (shistory[i].i && shistory[i].i.indexOf('일') == -1) {
           shistory[i].i += '일'
         }
         var ty = shistory[i].type === 'e' ? '🍱 ' : '🍼'
