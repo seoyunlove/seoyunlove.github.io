@@ -337,7 +337,7 @@
         if (shistory[i].i && shistory[i].i.indexOf('일') == -1) {
           shistory[i].i += '일'
         }
-        var ty = shistory[i].type === 'e' ? '🍱 ' : '🍼'
+        var ty = shistory[i].type === 'e' ? '🍱' : '🍼'
         if (shistory[i].i == getd('r')) {
           var ss = '<div id="r' + shistory[i].id + '" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a href="#" class="alert-link">' + shistory[i].time + '</a>' + ty + shistory[i].ml + 'ml<button id="' + shistory[i].id + '" type="button" class="close" data-dismiss="alert" aria-label="취소" onclick="rem(\'' + shistory[i].id + '\')"><span aria-hidden="true">&times;</span></button></div>'
           document.getElementById('hist').innerHTML += ss
