@@ -127,10 +127,8 @@
   <h5 id="h" style="margin-top:10px;" onclick="openNav()"></h5>
   <div id="hist">
   </div>
-  <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🗓수유 기록</h5>
+  <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🗓기록</h5>
   <div id="listh"></div>
-  <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🍱 이유식 기록</h5>
-  <div id="liste"></div>
   <h5 id="vh" style="margin-top:10px;" onclick="openNav()">🎂기념일</h5>
   <div id="spe"></div>
   <button onclick="dspp('r')" class="btn btn-default dropdown-toggle" type="button" style="width:100%" aria-expanded="false">+ 기념일 더보기
@@ -259,7 +257,6 @@ var eu = []
       localStorage.setItem('shistory', JSON.stringify(shistory))
       document.getElementById('title').innerHTML = '🍼' + tot + ' ' + rtt() + 'ml'
       lis()
-      lise()
       dday()
     }
     function det(t) {
@@ -275,39 +272,6 @@ var eu = []
       }
       return rs
     }
-    function lise() {
-      var hhistory = shistory.filter(function (s) { return s.type == 'e'})
-      for (var ri = 0; ri < hhistory.length; ri++) {
-        if (hhistory[ri].i && hhistory[ri].i.indexOf('일') == -1) {
-          hhistory[ri].i += '일'
-        }
-        if (totals.indexOf(hhistory[ri].i) == -1) {
-          totals.push(hhistory[ri].i)
-        }
-      }
-      document.getElementById('liste').innerHTML = ''
-      for (var i = totals.length - 1; i >= 0; i--) {
-        var tam = 0
-
-        for (var ai = hhistory.length - 1; ai >= 0; ai--) {
-          if (hhistory[ai].i.indexOf('일') == -1) {
-            hhistory[ai].i += '일'
-          }
-          if (hhistory[ai].i == totals[i]) {
-            tam += parseInt(hhistory[ai].ml)
-          }
-        }
-
-        var vdv = vit.indexOf(totals[i]) == -1 ? '' : ' ✅비타민 D'
-        if (totals[i].indexOf('일') == -1) {
-          totals[i] += '일'
-        }
-
-        var sii = '<div id="c' + i + '" class="collapse">' + det(totals[i]) + '</div>'
-        var ss = '<div onclick="tss(c' + i + ')" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + sii + '</div>'
-        document.getElementById('liste').innerHTML += ss
-      }
-    }
     function lis() {
       var hhistory = shistory
       for (var ri = 0; ri < hhistory.length; ri++) {
@@ -321,13 +285,18 @@ var eu = []
       document.getElementById('listh').innerHTML = ''
       for (var i = totals.length - 1; i >= 0; i--) {
         var tam = 0
+        var er = 0
 
         for (var ai = hhistory.length - 1; ai >= 0; ai--) {
           if (hhistory[ai].i.indexOf('일') == -1) {
             hhistory[ai].i += '일'
           }
           if (hhistory[ai].i == totals[i]) {
-            tam += parseInt(hhistory[ai].ml)
+            if (hhistory[ai].type === 'e') {
+              er += parseInt(hhistory[ai].ml)
+            } else {
+              tam += parseInt(hhistory[ai].ml)
+            }
           }
         }
 
@@ -335,9 +304,10 @@ var eu = []
         if (totals[i].indexOf('일') == -1) {
           totals[i] += '일'
         }
+        er = 0 ? '' : ' 🍱' + er + 'ml'
 
         var sii = '<div id="c' + i + '" class="collapse">' + det(totals[i]) + '</div>'
-        var ss = '<div onclick="tss(c' + i + ')" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + sii + '</div>'
+        var ss = '<div onclick="tss(c' + i + ')" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a class="alert-link">' + totals[i] + '</a> 📊' + tam + 'ml' + vdv + sii + er + '</div>'
         document.getElementById('listh').innerHTML += ss
       }
     }
@@ -413,11 +383,7 @@ var eu = []
       document.getElementById('hist').innerHTML = ''
       localStorage.setItem('shistory', JSON.stringify(shistory))
       gh()
-      if (mtype=='e') {
-        lise()
-      } else {
-        lis()
-      }
+      lis()
       dday()
     }
     window.onload = function () {
@@ -439,7 +405,6 @@ var eu = []
       dday()
       vvd()
       lis()
-      lise()
       dspp()
     }
   </script>
