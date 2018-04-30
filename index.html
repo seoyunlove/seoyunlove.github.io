@@ -284,7 +284,7 @@
         var er = 0
 
         for (var ai = hhistory.length - 1; ai >= 0; ai--) {
-          if (hhistory[ai].i.indexOf('일') == -1) {
+          if (hhistory[ai].i && hhistory[ai].i.indexOf('일') == -1) {
             hhistory[ai].i += '일'
           }
           if (hhistory[ai].i == totals[i]) {
