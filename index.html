@@ -276,7 +276,7 @@ var eu = []
       return rs
     }
     function lise() {
-      var hhistory = shistory.filter(s => s.type == 'e')
+      var hhistory = shistory.filter(function (s) { return s.type == 'e'})
       for (var ri = 0; ri < hhistory.length; ri++) {
         if (hhistory[ri].i && hhistory[ri].i.indexOf('일') == -1) {
           hhistory[ri].i += '일'
