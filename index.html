@@ -117,8 +117,14 @@
   <div class="form-check" style="margin-top: 10px;">
     <input class="form-check-input" type="checkbox" value="" id="vdd" onclick="chvd()">
     <label class="form-check-label" for="vdd">
-      비타민D 섭취 (매일 반드시 필수 👨‍👩‍👧 👧)
+      비타민D 섭취 (매일필수 👨‍👩‍👧 👧)
     </label>
+    <div style="display:inline-block;padding-left:20px;">
+    <input class="form-check-input" type="checkbox" value="" id="ys" onclick="cys()">
+    <label class="form-check-label" for="ys">
+      유산균
+    </label>
+  </span>
   </div>
   <h5 id="h" style="margin-top:10px;" onclick="openNav()"></h5>
   <div id="hist">
@@ -211,12 +217,27 @@
       }
       lis()
     }
+    function cys() {
+      if (ys.indexOf(getd('r')) == -1) {
+        ys.push(getd('r'))
+        localStorage.setItem('ys', JSON.stringify(ys))
+      } else {
+        ys = ys.filter(function (v) { return v != getd('r') })
+        localStorage.setItem('ys', JSON.stringify(ys))
+      }
+      lis()
+    }
 
     function vvd() {
       if (vit.indexOf(getd('r')) !== -1) {
         document.getElementById('vdd').checked = true
       } else {
         document.getElementById('vdd').checked = false
+      }
+      if (ys.indexOf(getd('r')) !== -1) {
+        document.getElementById('ys').checked = true
+      } else {
+        document.getElementById('ys').checked = false
       }
     }
     function z(n) { return (n < 10 ? '0' : '') + n }
@@ -227,6 +248,7 @@
     var shistory = JSON.parse(localStorage.getItem('shistory')) || []
     var totals = []
     var vit = JSON.parse(localStorage.getItem('vit')) || []
+    var ys = JSON.parse(localStorage.getItem('ys')) || []
     vit.push('3월 27일')
     for (var ri = 0; ri < shistory.length; ri++) {
       if (shistory[ri].i && shistory[ri].i.indexOf('일') == -1) {
@@ -297,13 +319,14 @@
         }
 
         var vdv = vit.indexOf(totals[i]) == -1 ? '' : ' ✅비타민 D'
+        var ysv = ys.indexOf(totals[i]) == -1 ? '' : ' ✅유산균'
         if (totals[i].indexOf('일') == -1) {
           totals[i] += '일'
         }
         er = er === 0 ? '' : ' 🍱' + er + 'ml'
 
         var sii = '<div id="c' + i + '" class="collapse">' + det(totals[i]) + '</div>'
-        var ss = '<div onclick="tss(c' + i + ')" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a class="alert-link">' + totals[i] + '</a> 🍼' + tam + 'ml' + er + vdv + sii + '</div>'
+        var ss = '<div onclick="tss(c' + i + ')" class="alert alert-' + (i % 2 === 0 ? 'warning' : 'info') + '" role="alert"><a class="alert-link">' + totals[i] + '</a> 🍼' + tam + 'ml' + er + vdv + ysv + sii + '</div>'
         document.getElementById('listh').innerHTML += ss
       }
     }
