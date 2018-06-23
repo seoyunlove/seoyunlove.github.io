@@ -292,7 +292,7 @@ return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - 
     }
     function lis() {
       var hhistory = shistory
-      for (var ri = 0; ri < hhistory.length; ri++) {
+      for (var ri = 0; ri < 7; ri++) {
         if (hhistory[ri].i && hhistory[ri].i.indexOf('일') == -1) {
           hhistory[ri].i += '일'
         }
