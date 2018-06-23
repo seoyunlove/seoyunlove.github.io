@@ -101,12 +101,8 @@
     <a href="#lv" onclick="closeNav()">서윤아 사랑해</a>
   </div>
   <h5 id="title" onclick="openNav()"></h5>
-  <button type="button" class="btn btn-secondary" style="width:100%;" onclick="add(70);">70 (2 스푼)</button>
-  <button type="button" class="btn btn-primary" style="width:100%;margin-top:10px;" onclick="add(100);">100 (3 스푼)</button>
-  <button type="button" class="btn btn-success" style="width:100%;margin-top:10px;" onclick="add(135);">135 (4 스푼)</button>
-  <button type="button" class="btn btn-danger" style="width:100%;margin-top:10px;" onclick="add(170);">170 (5 스푼)</button>
+  <button type="button" class="btn btn-danger" style="width:100%;margin-top:0px;" onclick="add(170);">170 (5 스푼)</button>
   <button type="button" class="btn btn-warning" style="width:100%;margin-top:10px;" onclick="add(200);">200 (6 스푼)</button>
-  <button type="button" class="btn btn-info" style="width:100%;margin-top:10px;" onclick="add(235);">235 (7 스푼)</button>
   <div class="input-group" style="margin-top: 10px;">
     <input type="number" class="form-control" id="nn">
     <span class="input-group-btn">
@@ -126,6 +122,9 @@
     </label>
   </div>
   </span>
+  </div>
+  <div class="input-group" style="margin-top: 10px;">
+    <input type="text" class="form-control" placeholder="시간 입력 (옵션)" id="cti">
   </div>
   <h5 id="h" style="margin-top:10px;" onclick="openNav()"></h5>
   <div id="hist">
@@ -377,7 +376,7 @@
         a = parseInt(document.getElementById('nn').value)
       }
       if (isNaN(a)) return
-
+      var ctt = document.getElementById('cti').value || ''
       var d = new Date()
       var h = d.getHours()
       var n = (h < 12 ? '오전' : '오후')
@@ -393,12 +392,13 @@
       }
       todayTotal += a
       shistory.push({
-        time: getd(),
+        time: ctt || getd(),
         ml: a,
         i: getd('r'),
         id: 'i' + Math.random() + '' + Math.random(),
         type: mtype
       })
+      document.getElementById('cti').value = ''
       localStorage.setItem('todayTotal', todayTotal)
       document.getElementById('title').innerText = '🍼' + tot + ' ' + rtt() + 'ml'
       document.getElementById('hist').innerHTML = ''
