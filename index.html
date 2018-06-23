@@ -356,7 +356,7 @@ return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - 
       return tam
     }
     function gh() {
-      for (var i = shistory.length - 1; i >= shistory.length - 7; i--) {
+      for (var i = shistory.length - 1; i >= 0; i--) {
         if (shistory[i].i && shistory[i].i.indexOf('일') == -1) {
           shistory[i].i += '일'
         }
