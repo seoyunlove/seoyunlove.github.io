@@ -292,7 +292,7 @@ return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - 
     }
     function lis() {
       var hhistory = shistory
-      for (var ri = 0; ri < 7; ri++) {
+      for (var ri = 0; ri < hhistory.length; ri++) {
         if (hhistory[ri].i && hhistory[ri].i.indexOf('일') == -1) {
           hhistory[ri].i += '일'
         }
@@ -301,7 +301,7 @@ return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - 
         }
       }
       document.getElementById('listh').innerHTML = ''
-      for (var i = totals.length - 1; i >= 0; i--) {
+      for (var i = totals.length - 1; i >= 7; i--) {
         var tam = 0
         var er = 0
 
