@@ -179,6 +179,11 @@
       }
 
     }
+    var dda = function(date1, date2) {
+dt1 = new Date(date1);
+dt2 = new Date(date2);
+return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+}
     function dday() {
       var sd = new Date()
       var strDate1 = "2017-11-7";
@@ -187,12 +192,7 @@
       var arr2 = strDate2.split('-');
       var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
       var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
-
-      var diff = dat2 - dat1;
-      var currDay = 24 * 60 * 60 * 1000;
-      var currMonth = currDay * 30;// 월 만듬
-      var currYear = currMonth * 12; // 년 만듬
-      var ldd = parseInt(diff / currDay)
+      var ldd = dda(dat1, dat2) + 1
       var lm = parseInt(ldd / 30)
       var dl = ldd % 30
       document.getElementById('h').innerText = '💖+' + (ldd) + ' (' + lm + '개월 ' + dl + '일) ' + rtt() + 'ml'
