@@ -193,6 +193,7 @@ return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - 
       var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
       var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
       var ldd = dda(dat1, dat2)
+      if(ldd%2 == 0)ldd+=1
       var lm = parseInt(ldd / 30)
       var dl = ldd % 30
       document.getElementById('h').innerText = '💖+' + (ldd) + ' (' + lm + '개월 ' + dl + '일) ' + rtt() + 'ml'
